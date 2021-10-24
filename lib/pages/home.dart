@@ -22,7 +22,7 @@ class homepageContainer extends StatelessWidget{
               ListTile(
                 leading: const Icon(Icons.bar_chart),
                 title: Text('Расходы за %month%'.replaceFirst("%month%", monthName)),
-                subtitle: Text('40 грiвен'),
+                subtitle: Text('0 rub'),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -49,7 +49,7 @@ class homepageContainer extends StatelessWidget{
                   const ListTile(
                     leading: Icon(Icons.monetization_on_outlined),
                     title: Text('Ваши средства'),
-                    subtitle: Text('Очко'),
+                    subtitle: Text('0 rub'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -65,7 +65,7 @@ class homepageContainer extends StatelessWidget{
             ),
         ),
           ///
-          /// Модуль "Ваши средства"
+          /// Модуль "Цели"
           /// TODO Обновление элементов, рабочие кнопки
         Card(
           child:

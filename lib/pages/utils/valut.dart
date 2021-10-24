@@ -28,6 +28,6 @@ void createCategory(String name, Color color, bool isSpend){
 
 categoryData getCategory(String name){
   var box = Hive.box('myBox');
-  categoryData data = box.get();
-  return data
+  //categoryData data = box.get();
+  //return data
 }

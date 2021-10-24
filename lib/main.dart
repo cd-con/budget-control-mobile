@@ -8,9 +8,11 @@ enum screenOpen{
   home,
   stats,
   events,
-  category
+  category,
+  settings
 }
 
+bool lockDrawer = false;
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Budget Control Mobile',
       theme: ThemeData(primarySwatch: Colors.blue),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -51,72 +53,94 @@ class MainContainer extends State<AppContainer>{
 
   @override
   Widget build(BuildContext context) {
-    const UserAccountsDrawerHeader header = UserAccountsDrawerHeader(accountName: Text("Rusty"), accountEmail: Text("neskvik.s.pivom@yandex.ru"), currentAccountPicture: FlutterLogo(),);
-    Drawer drawer = Drawer(child: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        const DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.blue,
+    const UserAccountsDrawerHeader header = UserAccountsDrawerHeader(
+      accountName: Text("Rusty"),
+      accountEmail: Text("neskvik.s.pivom@yandex.ru"),
+      currentAccountPicture: FlutterLogo(),);
+    Drawer navDrawer = Drawer(child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: header,
           ),
-          child: header,
-        ),
-        ListTile(
-          title: const Text('Главная'),
-          onTap: () {
-            Navigator.pop(context);
-            setState(() {
-              _state = screenOpen.home;
-            });
+          ListTile(
+            title: const Text('Главная'),
+            leading: const Icon(Icons.home),
+            onTap: () {
+              Navigator.pop(context);
+              setState(() {
+                _state = screenOpen.home;
+              });
             },
-        ),
-        ListTile(
-          title: const Text('Статистика'),
-          onTap: () {
-            Navigator.pop(context);
-            setState(() {
-              _state = screenOpen.stats;
-            });
+          ),
+          ListTile(
+            title: const Text('Статистика'),
+            leading: const Icon(Icons.bar_chart),
+            onTap: () {
+              Navigator.pop(context);
+              setState(() {
+                _state = screenOpen.stats;
+              });
             },
-        ),
-        ListTile(
-          title: const Text('События'),
-          onTap: () {
-            Navigator.pop(context);
-            setState(() {
-              _state = screenOpen.events;
-            });
+          ),
+          ListTile(
+            title: const Text('События'),
+            leading: const Icon(Icons.event),
+            onTap: () {
+              Navigator.pop(context);
+              setState(() {
+                _state = screenOpen.events;
+              });
             },
-        ),
-        ListTile(
-          title: const Text('Категории'),
-          onTap: () {
-            Navigator.pop(context);
-            setState(() {
-              _state = screenOpen.category;
-            });
+          ),
+          ListTile(
+            title: const Text('Категории'),
+            leading: const Icon(Icons.category),
+            onTap: () {
+              Navigator.pop(context);
+              setState(() {
+                _state = screenOpen.category;
+              });
             },
-        ),
-      ],
-    ));
+          ),
+
+          ListTile(
+            title: const Text('Настройки'),
+            leading: const Icon(Icons.settings),
+            onTap: () {
+              Navigator.pop(context);
+              setState(() {
+                _state = screenOpen.settings;
+              });
+            },
+          ),
+        ],
+      ));
     var content;
-    print(_state);
-    switch (_state){
+    switch (_state) {
       case screenOpen.home:
         content = const homepageContainer();
         break;
       case screenOpen.category:
-        content = const categoryContainer();
+        content = categoryPage();
         break;
       case screenOpen.stats:
-        //content = ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("You called state: stats")));
+      //content = ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("You called state: stats")));
         break;
       default:
-        print("No state called for this state");
         break;
     }
-
-  return Scaffold(appBar: AppBar(title: const Text("Budget control")), body: content, drawer: drawer,);
+    if (lockDrawer) {
+      return Scaffold(appBar: AppBar(title: const Text("Budget control")),
+        body: content);
+    }else{
+      return Scaffold(appBar: AppBar(title: const Text("Budget control")),
+        body: content,
+        drawer: navDrawer,);
+    }
   }
 
 }
