@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:futter_playground/pages/category.dart';
+import 'package:futter_playground/pages/settings.dart';
+import 'package:futter_playground/pages/stats.dart';
 import 'pages/home.dart';
 
 enum screenOpen{
@@ -125,10 +127,13 @@ class MainContainer extends State<AppContainer>{
         content = const homepageContainer();
         break;
       case screenOpen.category:
-        content = categoryPage();
+        content = const categoryPage();
+        break;
+      case screenOpen.settings:
+        content = const SettingsPage();
         break;
       case screenOpen.stats:
-      //content = ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("You called state: stats")));
+        content = const StatsPage();
         break;
       default:
         break;
